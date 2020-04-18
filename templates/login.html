@@ -1,0 +1,25 @@
+{%extends "layout.html"%}
+
+{%block title%}Giris Yap{%endblock title%}
+
+{%block body%}
+{% load crispy_forms_tags %}
+
+<hr>
+<h3 style="text-align: center;" class="text-info">Giriş Yap</h3>
+<hr>
+<div class="row" style="color:cadetblue;">
+    <div class="col-md-6 offset-md-3">
+        <form method="POST">
+            {% csrf_token%}
+            {{form|crispy}}
+            <br>
+            <button type="submit" class="btn btn-outline-info">Giriş Yap</button>
+            <br>
+            <br>
+            <a href="{% url 'User:register'%}"><p class="text-info"><small>Hesap Oluştur</small> </p>  </a>
+        </form>
+    </div>
+</div>
+
+{%endblock body%}

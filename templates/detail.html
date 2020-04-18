@@ -1,0 +1,94 @@
+{%extends "layout.html"%}
+
+{%block title%}{{series.title}} {%endblock title%}
+
+{%block body%}
+
+<hr>
+<h3 style="text-align: center;" class="text-info"> {{series.title}} </h3>
+<h3 style="text-align: center;" class="text-info"><small>{{series.year}}</small></h3>
+<hr>
+
+<div class="text-center ">
+   <img src="{{series.seriesImage.url}}" class="img-fluid" alt="Responsive image">
+    <hr>
+    <h5 class="text-white">{{series.issue}}</h5>
+
+    <hr>
+
+    <table class="table table-striped table-info">
+        <tbody>
+          <tr>
+            <th scope="row">Tür</th>
+            <td>{{series.kind}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Yönetmen</th>
+            <td>{{series.director}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Oyuncular</th>
+            <td>{{series.performer}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Sezon Sayısı</th>
+            <td>{{series.season}}</td>
+          </tr>
+          <tr>
+            <th scope="row">IMDB Puanı</th>
+            <td>{{series.imdbPoint}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+<a href="{{series.link}}" class="btn btn-outline-info">Fragmana Git</a>
+</div>
+
+<hr>
+<div class="text-center">
+    
+</div>
+<br>
+<hr>
+<br>
+<div class="text-center">
+    
+    {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'TvShow:comment' series.id%}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1" class="text-white">Yorum Ekle</label>
+        <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Yorum Ekleyin"></textarea>
+      </div>
+      <button type="submit", class="btn btn-info">Yorum Yap</button>
+    </form>  
+    
+    {% else %}
+    <h5 class="text-white"><small>Yorum ekleyebilmek için <a href="{% url 'User:login'%}" class="text-white">giriş yapın.</a></small></h5>
+
+    {% endif %} 
+    </div>
+    <div>
+    <br><br>
+    <h3 style="text-align: center;" class="text-info"> Yorumlar</h3>
+    {% if comments %}
+    
+    <hr style="border-top:1px solid aqua;">
+    {%for comment in comments%}
+    <div class="media mb-4">
+      <div class="media-body">
+        <h5 class="text-info"> <small>{{comment.username}}</small> </h5>
+        <h6 class="text-white"> <small>{{comment.content}}</small> </h6>
+        <p class="text-white"> <small>{{comment.commentDate}}</small> </p>
+      </div>
+    </div>
+    
+    <hr style="border-top:1px solid aqua;">
+    {%endfor%}
+    {% else %}
+    <div class="alert alert-info">Bu diziye yorum yazılmamış, ilk yorumu siz yapın.</div>
+
+    {% endif %} 
+    <br><br><br><br><br><br><br><br><br><br>
+ </div>
+{%endblock body%}

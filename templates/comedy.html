@@ -1,0 +1,46 @@
+{%extends "layout.html"%}
+
+{%block title%}Komedi{%endblock title%}
+
+{%block body%}
+
+
+<hr>
+<h3 style="text-align: center;" class="text-info">Komedi</h3>
+<hr>
+
+<!-- #Veri tabanında otomobil var mı onu kontrol etmek için -->
+{%if series %} 
+<div class="row">
+{%for s in series %}
+
+<div class="col-4">
+<div class="card-group">
+<div class="card bg-info mb-3" style="width: 18rem;">
+  <img class="card-img-top" src="{{s.seriesImage.url}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{s.title}}</h5>
+    <p>Oyuncular: {{s.performer}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item bg-info">Tür:: {{s.kind}}</li>
+      <li class="list-group-item bg-info">Sezon Sayısı: {{s.season}}</li>
+      <li class="list-group-item bg-info">IMDB Puanı: {{s.imdbPoint}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'TvShow:detail' s.id%}" class="btn btn-info">Detay</a>
+  </div>
+</div>
+</div>
+</div>
+{% if forloop.counter|divisibleby:3 %}
+</div>
+<div class="row">
+{%endif%}
+
+{%endfor%}
+{%else%}
+<div class="alert alert-danger">Dizi Bulunamadı.</div>
+{%endif%}
+
+{%endblock body%}

@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="{% url 'index'%}">Ana Sayfa</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'TvShow:scifi'%}">Bilim Kurgu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'TvShow:mystery'%}">Gizem</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'TvShow:comedy'%}">Komedi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'TvShow:sport'%}">Spor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'TvShow:crime'%}">Suç</a>
+          </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link text-info" href="{% url 'User:logout'%}">Çıkış Yap</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link text-info" href="{% url 'User:login'%}">Giriş Yap</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-info" href="{% url 'User:register'%}">Kayıt Ol</a>
+        </li>
+      {% endif %} 
+
+      </ul>
+      <form class="form-inline" method="GET" action="{% url 'index'%}">
+        <div class="form-group">
+        {%csrf_token%}
+        <input class="form-control mr-sm-2" name="keyword" type="text" placeholder="Dizi Ara" aria-label="Search">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Bul</button>
+        </div>
+      </form>
+      
+    </div>
+  </nav>
